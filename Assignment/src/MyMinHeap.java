@@ -1,17 +1,39 @@
 import java.io.*;
 
-public class MyMinHeap {
+public class MyMinHeap<T> {
+    private int heapSize;
+    @SuppressWarnings("unchecked")
+    private T[] elements = (T[]) new Object[heapSize];
+    private int head = 0;
 
     public MyMinHeap(String heapSize) {
         try {
-            int s = Integer.parseInt(heapSize);
+            this.heapSize = Integer.parseInt(heapSize);
         }
         catch (NumberFormatException nfe) {
-            int s = 32;
+            this.heapSize = 32;
         }
     }
 
-    public <T> void insert(T item) {
+    public void insert(T item) {
+        elements[head] = item;
+        head++;
+        reheap();
+    }
+
+    public void remove(T item) {
+
+    }
+
+    public void replace(T item, int place) {
+
+    }
+
+    public T peek() {
+        return elements[head];
+    }
+
+    public void reheap() {
 
     }
 }
