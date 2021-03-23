@@ -21,8 +21,18 @@ public class MyMinHeap<T> {
         reheap();
     }
 
-    public void remove(T item) {
-
+    public T remove() {
+        if(head == 0) {
+            return null;
+        }
+        else {
+            T item = elements[0];
+            elements[0] = elements[head];
+            elements[head] = null;
+            head--;
+            downheap();
+            return item;
+        }
     }
 
     public void replace(T item, int place) {
@@ -34,6 +44,18 @@ public class MyMinHeap<T> {
     }
 
     public void reheap() {
+
+    }
+
+    public void swap(int child, int parent) {
+
+    }
+
+    public void upheap() {
+
+    }
+
+    public void downheap() {
 
     }
 }
