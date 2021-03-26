@@ -1,9 +1,13 @@
 public class MyMinHeap {
-    private int heapSize;
-    private String[] elements = new String[heapSize];
-    private int head = 0;
+    private int heapSize; // Initial Size of the Heap
+    private String[] elements = new String[heapSize]; // Base Array for the heap
+    private int head = 0; // The pointer for the head of the heap
 
-    public MyMinHeap(String heapSize) {
+    /**
+     * Constructor that gets the size of the heap and stores it globally in the class
+     * @param heapSize Size of the heap
+     */
+    public MyMinHeap(String heapSize) { // Stored as a string because it needs to handle non integer types instead of failing
         try {
             this.heapSize = Integer.parseInt(heapSize);
         }
@@ -12,12 +16,20 @@ public class MyMinHeap {
         }
     }
 
+    /**
+     * Adds an item to the heap and puts it in heap order
+     * @param item Some string item as input
+     */
     public void insert(String item) {
         elements[head] = item;
         head++;
         upheap();
     }
 
+    /**
+     * Removes the top most heap item and puts it in heap order
+     * @return Returns the top most heap item
+     */
     public String remove() {
         if(head == 0) {
             return null;
@@ -32,6 +44,11 @@ public class MyMinHeap {
         }
     }
 
+    /**
+     * Replaces the top most heap item with the parameter, puts it back in heap order
+     * @param item Some string input
+     * @return Returns the top most heap item
+     */
     public String replace(String item) {
         String tmp = "";
         if(head == 0) {
@@ -45,27 +62,46 @@ public class MyMinHeap {
         return tmp;
     }
 
+    /**
+     * Shows the top most heap item without changing the heap order
+     * @return Returns top most heap item
+     */
     public String peek() {
         return elements[head];
     }
 
+    /**
+     * Similar to the insert method but doesn't apply heap order to the array
+     * @param item Takes a string input
+     */
     public void load(String item) {
         elements[head] = item;
         head++;
     }
 
+    /**
+     * Goes through each sub-parent and puts them in heap order
+     */
     public void reheap() {
         for(int i = parent(head); i > 0; i--) {
             downheap();
         }
     }
 
+    /**
+     * Swaps two items in the heap
+     * @param i Item 1
+     * @param j Item 2
+     */
     public void swap(int i, int j) {
         String tmp = elements[i];
         elements[i] = elements[j];
         elements[j] = tmp;
     }
 
+    /**
+     * Puts the heap in heap order when adding items to the heap
+     */
     public void upheap() {
         int tmp = head;
         while((tmp > 1) && (elements[parent(tmp)].compareTo(elements[tmp]) > 0)) {
@@ -76,6 +112,9 @@ public class MyMinHeap {
         }
     }
 
+    /**
+     * Puts the heap in heap order when removing or replacing items in the heap
+     */
     public void downheap() {
         int tmp = 1;
         while(leftIndex(tmp) < head) {
@@ -92,13 +131,28 @@ public class MyMinHeap {
         }
     }
 
+    /**
+     * Just gives the left index from the parent
+     * @param i Takes some parent node
+     * @return returns the position of the left sub-node
+     */
     public int leftIndex(int i) {
-        return i*2;
+        return i*2 + 1;
     }
 
+    /**
+     * Just gives the right index from the parent
+     * @param i Takes some parent node
+     * @return returns the position of the right sub-node
+     */
     public int rightIndex(int i) {
-        return 2*i + 1;
+        return 2*i + 2;
     }
 
+    /**
+     * An extra method to return the parent node of a given sub-node
+     * @param i Takes some sub-node
+     * @return Returns it's parent
+     */
     public int parent(int i) {return (int)Math.ceil(i/2)-1;}
 }
