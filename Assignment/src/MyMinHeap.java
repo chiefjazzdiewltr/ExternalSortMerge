@@ -93,7 +93,7 @@ public class MyMinHeap {
      * @param i Item 1
      * @param j Item 2
      */
-    public void swap(int i, int j) {
+    private void swap(int i, int j) {
         String tmp = elements[i];
         elements[i] = elements[j];
         elements[j] = tmp;
@@ -102,7 +102,7 @@ public class MyMinHeap {
     /**
      * Puts the heap in heap order when adding items to the heap
      */
-    public void upheap() {
+    private void upheap() {
         int tmp = head;
         while((tmp > 1) && (elements[parent(tmp)].compareTo(elements[tmp]) > 0)) {
             int child = tmp;
@@ -115,7 +115,7 @@ public class MyMinHeap {
     /**
      * Puts the heap in heap order when removing or replacing items in the heap
      */
-    public void downheap() {
+    private void downheap() {
         int tmp = 1;
         while(leftIndex(tmp) < head) {
             int child =  leftIndex(tmp);
@@ -136,7 +136,7 @@ public class MyMinHeap {
      * @param i Takes some parent node
      * @return returns the position of the left sub-node
      */
-    public int leftIndex(int i) {
+    private int leftIndex(int i) {
         return i*2 + 1;
     }
 
@@ -145,7 +145,7 @@ public class MyMinHeap {
      * @param i Takes some parent node
      * @return returns the position of the right sub-node
      */
-    public int rightIndex(int i) {
+    private int rightIndex(int i) {
         return 2*i + 2;
     }
 
@@ -154,5 +154,5 @@ public class MyMinHeap {
      * @param i Takes some sub-node
      * @return Returns it's parent
      */
-    public int parent(int i) {return (int)Math.ceil(i/2)-1;}
+    private int parent(int i) {return (int)Math.ceil(i/2)-1;}
 }
