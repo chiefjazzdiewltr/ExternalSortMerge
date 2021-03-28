@@ -89,6 +89,30 @@ public class MyMinHeap {
     }
 
     /**
+     * Returns if the heap is full or not
+     * @return Boolean state of the fullness of the heap
+     */
+    public boolean isFull() {
+        return head == heapSize;
+    }
+
+    /**
+     * Returns if the heap is empty or not
+     * @return Boolean state of the emptiness of the heap
+     */
+    public boolean isEmpty() {
+        return head == 0;
+    }
+
+    /**
+     * Sets the size of the heap pointer to make sure the runs are handled correctly
+     * @param change Increases or decreases the heap size by some integer
+     */
+    public void setHeapSize(int change) {
+        heapSize += change;
+    }
+
+    /**
      * Swaps two items in the heap
      * @param i Item 1
      * @param j Item 2
