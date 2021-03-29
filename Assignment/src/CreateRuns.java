@@ -21,7 +21,6 @@ public class CreateRuns {
             System.out.println(line);
             heap.load(line);
         }
-        System.out.println("End");
     }
 
     public static void main(String[] args) throws IOException {

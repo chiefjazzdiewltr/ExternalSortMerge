@@ -89,7 +89,8 @@ public class MyMinHeap {
      * @return Boolean state of the fullness of the heap
      */
     public boolean isFull() {
-        return head == (heapSize - 1);
+        System.out.println("Head: " + head + ", HeapSize: " + heapSize);
+        return head != heapSize;
     }
 
     /**
