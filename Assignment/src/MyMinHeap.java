@@ -1,19 +1,15 @@
 public class MyMinHeap {
-    private int heapSize; // Initial Size of the Heap
-    private String[] elements = new String[heapSize]; // Base Array for the heap
+    private int heapSize = 32; // Initial Size of the Heap
+    private String[] elements; // Base Array for the heap
     private int head = 0; // The pointer for the head of the heap
 
     /**
      * Constructor that gets the size of the heap and stores it globally in the class
-     * @param heapSize Size of the heap
+     * @param size Size of the heap
      */
-    public MyMinHeap(String heapSize) { // Stored as a string because it needs to handle non integer types instead of failing
-        try {
-            this.heapSize = Integer.parseInt(heapSize);
-        }
-        catch (NumberFormatException nfe) {
-            this.heapSize = 32;
-        }
+    public MyMinHeap(int size) { // Stored as a string because it needs to handle non integer types instead of failing
+        heapSize = size;
+        elements = new String[heapSize];
     }
 
     /**
@@ -22,7 +18,7 @@ public class MyMinHeap {
      */
     public void insert(String item) {
         elements[head] = item;
-        head++;
+        ++head;
         upheap();
     }
 
@@ -76,7 +72,7 @@ public class MyMinHeap {
      */
     public void load(String item) {
         elements[head] = item;
-        head++;
+        ++head;
     }
 
     /**
@@ -93,15 +89,7 @@ public class MyMinHeap {
      * @return Boolean state of the fullness of the heap
      */
     public boolean isFull() {
-        return head == heapSize;
-    }
-
-    /**
-     * Returns if the heap is empty or not
-     * @return Boolean state of the emptiness of the heap
-     */
-    public boolean isEmpty() {
-        return head == 0;
+        return head == (heapSize - 1);
     }
 
     /**

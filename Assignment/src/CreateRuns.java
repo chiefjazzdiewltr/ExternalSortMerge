@@ -2,7 +2,7 @@ import java.io.*;
 
 public class CreateRuns {
     private int size;
-    private MyMinHeap heap = new MyMinHeap("" + size);
+    private MyMinHeap heap;
 
     public CreateRuns(String initRunSize) {
         try {
@@ -11,24 +11,22 @@ public class CreateRuns {
         catch (NumberFormatException nfe) {
             System.err.println("Usage: java CreateRuns <int>");
         }
+        heap = new MyMinHeap(size);
     }
 
     public void runs() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while(!heap.isFull() || (reader.readLine() != null)) {
+        while(!(heap.isFull()) || (reader.readLine() != null)) {
             String line = reader.readLine();
-            if(!heap.isFull()){
-                heap.load(line);
-            }
-            else {
-                if(line.compareTo() > 0)
-                {
-
-                }
-                else if(line.compareTo() < 0) {
-                    heap.setHeapSize(-1);
-                }
-            }
+            System.out.println(line);
+            heap.load(line);
         }
+        System.out.println("End");
+    }
+
+    public static void main(String[] args) throws IOException {
+        String heapSize = args[0];
+        CreateRuns runs = new CreateRuns(heapSize);
+        runs.runs();
     }
 }
