@@ -25,8 +25,8 @@ public class CreateRuns {
                 if(line.compareTo(heap.peek()) > 0) {
                     break;
                 }
-                else {
-                    break;
+                if(line.compareTo(heap.peek()) < 0) {
+                    heap.setHeapSize(-1);
                 }
             }
         }
