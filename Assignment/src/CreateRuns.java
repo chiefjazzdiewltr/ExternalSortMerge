@@ -14,18 +14,21 @@ public class CreateRuns {
         heap = new MyMinHeap(size);
     }
 
-    public void runs() throws IOException {
+    public void initRuns() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while(!(heap.isFull()) || (reader.readLine() != null)) {
+        while(reader.readLine() != null) {
             String line = reader.readLine();
-            System.out.println(line);
-            heap.load(line);
+            if(!heap.isFull()) {
+                heap.load(line);
+            }
+            else {
+                if(line.compareTo(heap.peek()) > 0) {
+                    break;
+                }
+                else {
+                    break;
+                }
+            }
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        String heapSize = args[0];
-        CreateRuns runs = new CreateRuns(heapSize);
-        runs.runs();
     }
 }

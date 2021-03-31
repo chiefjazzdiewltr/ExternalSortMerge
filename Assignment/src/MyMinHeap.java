@@ -72,7 +72,7 @@ public class MyMinHeap {
      */
     public void load(String item) {
         elements[head] = item;
-        ++head;
+        head++;
     }
 
     /**
@@ -89,8 +89,7 @@ public class MyMinHeap {
      * @return Boolean state of the fullness of the heap
      */
     public boolean isFull() {
-        System.out.println("Head: " + head + ", HeapSize: " + heapSize);
-        return head != heapSize;
+        return head + 1 == heapSize;
     }
 
     /**
