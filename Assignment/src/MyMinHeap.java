@@ -101,6 +101,14 @@ public class MyMinHeap {
     }
 
     /**
+     * A simple public method to return the size of the heap
+     * @return Returns the current size of the heap
+     */
+    public int length() {
+        return head;
+    }
+
+    /**
      * Swaps two items in the heap
      * @param i Item 1
      * @param j Item 2
