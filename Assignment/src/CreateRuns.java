@@ -1,8 +1,16 @@
 import java.io.*;
 
+import javax.crypto.interfaces.PBEKey;
+
 public class CreateRuns {
     private int size;
     private MyMinHeap heap;
+
+    public static void main(String[] args)
+    {
+        CreateRuns c = new CreateRuns(args[0]);
+        c.initRuns();
+    }
 
     public CreateRuns(String initRunSize) {
         try {
@@ -14,31 +22,39 @@ public class CreateRuns {
         heap = new MyMinHeap(size);
     }
 
-    public void initRuns() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        while(reader.readLine() != null) {
+    public void initRuns() {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
             String line = reader.readLine();
-            if(!heap.isFull()) {
-                heap.load(line);
-            }
-            else {
-                if(line.compareTo(heap.peek()) > 0) {
-                    String output = heap.replace(line);
-                    writer.write(output + "\n\r");
+            while(line != null) {
+                if(!heap.isFull()) {
+                    heap.load(line);
                 }
-                if(line.compareTo(heap.peek()) < 0) {
-                    heap.setHeapSize(-1);
-                }
-            }
+                else {
+                    heap.reheap();
+                    if(heap.length() == 0) {
+                        writer.write("NEXTRUN\r\n");
+                        heap.setHeapSize(size - 1);
+                    }
 
-            if(heap.length() == 0) {
-                writer.write("NEXTRUN\n\r");
-                heap.setHeapSize(size);
+                    String tmp = heap.replace(line);
+                    writer.write(tmp + "\r\n");
+                    if(line.compareTo(tmp) >= 0) {
+                        tmp = heap.replace(line);
+                    }
+                    else {
+                        heap.setHeapSize(-1);
+                    }
+                }
+                line = reader.readLine();
+
             }
+            reader.close();
+            writer.close();
         }
-        reader.close();
-        writer.close();
+        catch(IOException iException) {
+            System.err.println(iException.getMessage());
+        }
     }
 }

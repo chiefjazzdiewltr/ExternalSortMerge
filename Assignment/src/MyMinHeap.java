@@ -18,7 +18,7 @@ public class MyMinHeap {
      */
     public void insert(String item) {
         elements[head] = item;
-        ++head;
+        head++;
         upheap();
     }
 
@@ -63,7 +63,7 @@ public class MyMinHeap {
      * @return Returns top most heap item
      */
     public String peek() {
-        return elements[head];
+        return elements[0];
     }
 
     /**
@@ -89,7 +89,7 @@ public class MyMinHeap {
      * @return Boolean state of the fullness of the heap
      */
     public boolean isFull() {
-        return head + 1 == heapSize;
+        return head + 1 >= heapSize;
     }
 
     /**
@@ -97,7 +97,7 @@ public class MyMinHeap {
      * @param change Increases or decreases the heap size by some integer
      */
     public void setHeapSize(int change) {
-        heapSize += change;
+        head += change;
     }
 
     /**
