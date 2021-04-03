@@ -27,28 +27,25 @@ public class CreateRuns {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
             String line = reader.readLine();
+            while(!heap.isFull()){
+                heap.load(line);
+            }
             while(line != null) {
-                if(!heap.isFull()) {
-                    heap.load(line);
+                heap.reheap();
+                if(heap.length() == 0) {
+                    writer.write("NEXTRUN\r\n");
+                    heap.setHeapSize(size - 1);
+                }
+
+                String tmp = heap.replace(line);
+                writer.write(tmp + "\r\n");
+                if(line.compareTo(tmp) >= 0) {
+                    tmp = heap.replace(line);
                 }
                 else {
-                    heap.reheap();
-                    if(heap.length() == 0) {
-                        writer.write("NEXTRUN\r\n");
-                        heap.setHeapSize(size - 1);
-                    }
-
-                    String tmp = heap.replace(line);
-                    writer.write(tmp + "\r\n");
-                    if(line.compareTo(tmp) >= 0) {
-                        tmp = heap.replace(line);
-                    }
-                    else {
-                        heap.setHeapSize(-1);
-                    }
+                    heap.setHeapSize(-1);
                 }
                 line = reader.readLine();
-
             }
             reader.close();
             writer.close();
