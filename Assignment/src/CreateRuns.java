@@ -30,8 +30,8 @@ public class CreateRuns {
             while(!heap.isFull()){
                 heap.load(line);
             }
+            heap.reheap();
             while(line != null) {
-                heap.reheap();
                 if(heap.length() == 0) {
                     writer.write("NEXTRUN\r\n");
                     heap.setHeapSize(size - 1);
