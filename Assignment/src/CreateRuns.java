@@ -31,20 +31,22 @@ public class CreateRuns {
                 heap.load(line);
             }
             heap.reheap();
+            String tmp = "";
             while(line != null) {
+
                 if(heap.length() == 0) {
-                    writer.write("NEXTRUN\r\n");
                     heap.setHeapSize(size - 1);
+                    writer.write("NEXTRUN\r\n");
                 }
 
-                String tmp = heap.replace(line);
-                writer.write(tmp + "\r\n");
+                tmp = heap.replace(line);
                 if(line.compareTo(tmp) >= 0) {
-                    tmp = heap.replace(line);
+                    writer.write(tmp + "\r\n");
                 }
                 else {
                     heap.setHeapSize(-1);
                 }
+
                 line = reader.readLine();
             }
             reader.close();
