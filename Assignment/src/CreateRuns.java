@@ -1,10 +1,8 @@
 import java.io.*;
 
-import javax.crypto.interfaces.PBEKey;
-
 public class CreateRuns {
     private int size;
-    private MyMinHeap heap;
+    private final MyMinHeap heap;
 
     public static void main(String[] args)
     {
@@ -17,7 +15,7 @@ public class CreateRuns {
             size = Integer.parseInt(initRunSize);
         }
         catch (NumberFormatException nfe) {
-            System.err.println("Usage: java CreateRuns <int>");
+            size = 32;
         }
         heap = new MyMinHeap(size);
     }

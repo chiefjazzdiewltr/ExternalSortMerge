@@ -16,7 +16,7 @@ public class MergeRuns
                 {
                     String line = reader.readLine();
                     if(line == null) break;
-                    System.out.println(line + "\r\n");
+                    System.out.println(line);
                 }
                 reader.close();
             }

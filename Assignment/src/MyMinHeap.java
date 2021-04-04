@@ -1,6 +1,6 @@
 public class MyMinHeap {
-    private int heapSize = 32; // Initial Size of the Heap
-    private String[] elements; // Base Array for the heap
+    private final int heapSize; // Initial Size of the Heap
+    private final String[] elements; // Base Array for the heap
     private int head = 0; // The pointer for the head of the heap
 
     /**
@@ -174,5 +174,5 @@ public class MyMinHeap {
      * @param i Takes some sub-node
      * @return Returns it's parent
      */
-    private int parent(int i) {return (int)Math.ceil(i/2)-1;}
+    private int parent(int i) {return (int)Math.ceil(i/2.0)-1;}
 }
