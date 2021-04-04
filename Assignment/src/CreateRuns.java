@@ -1,5 +1,10 @@
 import java.io.*;
 
+/**
+ * The class responsible for creating all the initial runs
+ * @author Zac Gillions (1505717)
+ * @author Linus Hauck ()
+ */
 public class CreateRuns {
     private int size;
     private final MyMinHeap heap;
@@ -34,6 +39,7 @@ public class CreateRuns {
 
                 if(heap.length() == 0) {
                     heap.setHeapSize(size - 1);
+                    heap.reheap();
                     writer.write("NEXTRUN\r\n");
                     writer.write(tmp + "\r\n");
                     line = reader.readLine();

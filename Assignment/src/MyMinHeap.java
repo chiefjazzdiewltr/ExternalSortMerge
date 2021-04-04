@@ -1,3 +1,8 @@
+/**
+ * A min-heap abstract data type
+ * @author Zac Gillions (1505717)
+ * @author Linus Hauck ()
+ */
 public class MyMinHeap {
     private final int heapSize; // Initial Size of the Heap
     private final String[] elements; // Base Array for the heap
@@ -124,7 +129,7 @@ public class MyMinHeap {
      */
     private void upheap() {
         int tmp = head;
-        while((tmp > 1) && (elements[parent(tmp)].compareTo(elements[tmp]) > 0)) {
+        while((tmp > 0) && (elements[parent(tmp)].compareTo(elements[tmp]) > 0)) {
             int child = tmp;
             int parent = parent(tmp);
             swap(child, parent);
@@ -136,7 +141,7 @@ public class MyMinHeap {
      * Puts the heap in heap order when removing or replacing items in the heap
      */
     private void downheap() {
-        int tmp = 1;
+        int tmp = 0;
         while(leftIndex(tmp) < head) {
             int child =  leftIndex(tmp);
             if(rightIndex(tmp) <= head && (elements[leftIndex(tmp)].compareTo(elements[rightIndex(tmp)]) > 0)) {
