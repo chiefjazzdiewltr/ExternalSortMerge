@@ -37,6 +37,8 @@ public class CreateRuns {
                 if(heap.length() == 0) {
                     heap.setHeapSize(size - 1);
                     writer.write("NEXTRUN\r\n");
+                    writer.write(tmp + "\r\n");
+                    line = reader.readLine();
                 }
 
                 tmp = heap.replace(line);
