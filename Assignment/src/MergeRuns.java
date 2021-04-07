@@ -16,7 +16,7 @@ public class MergeRuns
         try{MergeRuns mergeRuns = new MergeRuns(args[0]);}
         catch(Exception e)
         {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
     }
 
@@ -44,7 +44,7 @@ public class MergeRuns
             }
             catch(Exception e)
             {
-                System.err.println(e);
+                System.err.println(e.getMessage());
             }
             endOfCurrentRun = false;
             fileEmpty = false;
@@ -77,7 +77,7 @@ public class MergeRuns
             }
             catch(Exception e)
             {
-                System.err.println(e);
+                System.err.println(e.getMessage());
             }
             return null;
         }
@@ -115,8 +115,10 @@ public class MergeRuns
          */
         public void replaceFile(File newFile)
         {
-            file.delete();
-            newFile.renameTo(file);
+            boolean isSucc = file.delete();
+            if(!isSucc) System.err.println("Can't Replace");
+            isSucc = newFile.renameTo(file);
+            if(!isSucc) System.err.println("Can't Replace");
             file = newFile;
         }
 
@@ -128,9 +130,10 @@ public class MergeRuns
             try{reader.close();}
             catch(Exception e)
             {
-                System.err.println(e);
+                System.err.println(e.getMessage());
             }
-            file.delete();
+            boolean isSucc = file.delete();
+            if(!isSucc) System.err.println("Can't Replace");
         }
     }
 
@@ -154,8 +157,13 @@ public class MergeRuns
             for(int i = 0; i < outputFiles.length; i++) // let's create the files.
             {
                 File newFile = new File(dRuns.tmpFiles[i].getName().replace(".tmp", "B.tmp"));
-                if(newFile.exists()) newFile.delete();
-                newFile.createNewFile();
+                boolean fileExists = newFile.createNewFile();
+                if(!fileExists) {
+                    boolean isSucc = newFile.delete();
+                    if(!isSucc) {
+                        System.err.println("Can't Delete");
+                    }
+                }
                 outputFiles[i] = newFile;
             }
 
@@ -241,8 +249,10 @@ public class MergeRuns
             writer.write(output + "\r\n");
         }
         writer.close();
-
-        for(int i = 0; i < dRuns.tmpFiles.length; i++) dRuns.tmpFiles[i].delete(); // delete our temp files
+        for(int i = 0; i < dRuns.tmpFiles.length; i++) {
+            boolean isSucc = dRuns.tmpFiles[i].delete(); // delete our temp files
+            //if(!isSucc) System.err.println("Can't Delete!");
+        }
 
     }
 
@@ -250,7 +260,7 @@ public class MergeRuns
      * Returns a boolean based on if the files are all done being sorted
      * @return True if the runs are down, false if one or more runs are not done
      */
-    public boolean allRunsDone()
+    private boolean allRunsDone()
     {
         for(TempFileReader fReader: fileReaders)
         {
@@ -263,7 +273,7 @@ public class MergeRuns
      * Checking if all the files are empty
      * @return True if all files are empty, false if one or more have data
      */
-    public boolean allFilesEmpty()
+    private boolean allFilesEmpty()
     {
         for(TempFileReader fReader: fileReaders)
         {

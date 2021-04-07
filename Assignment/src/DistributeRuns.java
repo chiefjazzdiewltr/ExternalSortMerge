@@ -33,8 +33,13 @@ public class DistributeRuns {
         {
             String fileName = "temp" + i;
             File newFile = new File(fileName + ".tmp");
-            if(newFile.exists()) newFile.delete();
-            newFile.createNewFile();
+            boolean fileExists = newFile.createNewFile();
+            if(!fileExists) {
+                boolean isSucc = newFile.delete();
+                if(!isSucc) {
+                    System.err.println("Can't Delete");
+                }
+            }
             tmpFiles[i] = newFile;
         }
 

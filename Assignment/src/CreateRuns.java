@@ -7,7 +7,7 @@ import java.io.*;
  */
 public class CreateRuns {
     private int size;
-    private Heap heap;
+    private final Heap heap;
 
     /**
      * The main method responsible for initializing the runs
@@ -37,12 +37,12 @@ public class CreateRuns {
     /**
      * The method responsible for initializing all the runs
      */
-    public void initRuns() {
+    private void initRuns() {
         try {
             // The base reader and writer interfaces
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
-            String line = "";
+            String line;
 
             // fill heap
             while(!heap.isFull()){

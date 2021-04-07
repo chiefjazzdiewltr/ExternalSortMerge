@@ -4,8 +4,44 @@
  * @author Linus Hauck (1505810)
  */
 public class Heap {
-    private Node[] data; // the array used to store data
+    private final Node[] data; // the array used to store data
     private int size; // the current size of heap. NOT capacity
+
+    /**
+     * The node class responsible for storing the line and it's corresponding pointer to a temporary file
+     */
+    private class Node {
+        public String value; // our node value
+        public int tValue; // this is used to save temp file index
+
+        /**
+         * Node constructor just to initialize the node
+         */
+        public Node() {
+            value = "NULL";
+        }
+
+        /**
+         * Allows the node values to be set
+         *
+         * @param v  The line from the input stream
+         * @param tv the temporary file index
+         */
+        public void set(String v, int tv) {
+            value = v;
+            tValue = tv;
+        }
+
+        /**
+         * Returns a duplicate of the selected node
+         * @return A copy of the node
+         */
+        public Node createCopy() {
+            Node copy = new Node();// create new node, set to same values
+            copy.set(value, tValue);
+            return copy;
+        }
+    }
 
     /**
      * Heap constructor that is responsible for filling the heap with nodes
@@ -19,53 +55,13 @@ public class Heap {
     }
 
     /**
-     * The node class responsible for storing the line and it's corresponding pointer to a temporary file
-     */
-    private class Node
-    {
-        public String value; // our node value
-        public int tValue; // this is used to save temp file index
-
-        /**
-         * Node constructor just to initialize the node
-         */
-        public Node()
-        {
-            value = "NULL";
-        }
-
-        /**
-         * Allows the node values to be set
-         * @param v The line from the input stream
-         * @param tv the temporary file index
-         */
-        public void set(String v, int tv)
-        {
-            value = v;
-            tValue = tv;
-        }
-
-        /**
-         * Returns a duplicate of the previous values
-         * @return
-         */
-        public Node createCopy()
-        {
-            Node copy = new Node();// create new node, set to same values
-            copy.set(value, tValue);
-            return copy;
-        }
-    }
-
-    /**
      * Allows the heap size to be changed
      * @param newSize The new size to be changed
      */
     public void setSize(int newSize)
     {
         if(newSize > data.length) size = data.length;
-        else if(newSize < 0) size = 0;
-        else size = newSize;
+        else size = Math.max(newSize, 0);
     }
 
     /**
@@ -172,11 +168,11 @@ public class Heap {
             System.err.print(data[i].value + " "); // print current value
             if(i == newLineAt) // if end of line, print newLine character
             {
-                System.err.println("");
+                System.err.println();
                 newLineAt = newLineAt * 2 + 2; // next time we need a newLine
             }
         }
-        System.err.println("");
+        System.err.println();
     }
 
     /**
