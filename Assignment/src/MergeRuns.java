@@ -133,7 +133,7 @@ public class MergeRuns
                 System.err.println(e.getMessage());
             }
             boolean isSucc = file.delete();
-            if(!isSucc) System.err.println("Can't Replace");
+            if(!isSucc) System.err.println("Can't Delete");
         }
     }
 
@@ -249,9 +249,9 @@ public class MergeRuns
             writer.write(output + "\r\n");
         }
         writer.close();
-        for(int i = 0; i < dRuns.tmpFiles.length; i++) {
+        for(int i = 1; i < dRuns.tmpFiles.length; i++) {
             boolean isSucc = dRuns.tmpFiles[i].delete(); // delete our temp files
-            //if(!isSucc) System.err.println("Can't Delete!");
+            if(!isSucc) System.err.println("Can't Delete: " + dRuns.tmpFiles[i].getName());
         }
 
     }
