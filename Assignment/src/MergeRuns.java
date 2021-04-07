@@ -1,8 +1,17 @@
 import java.io.*;
 
+/**
+ * Class responsible for taking the temporary files and merging them
+ * @author Zac Gillions (1505717)
+ * @author Linus Hauck (1505810)
+ */
 public class MergeRuns
 {
-    public static void main(String[] args) // used for testing
+    /**
+     * Constructor that specifies how many files it will create in distribute runs
+     * @param args The number of files distribute files with create
+     */
+    public static void main(String[] args)
     {
         try{MergeRuns mergeRuns = new MergeRuns(args[0]);}
         catch(Exception e)
@@ -11,13 +20,21 @@ public class MergeRuns
         }
     }
 
+    /**
+     * Class responsible for reader the temporary files and applying operations to them
+     */
     private class TempFileReader
     {
+        // Some basic variables to store states of the file
         private File file;
         private BufferedReader reader;
         private boolean endOfCurrentRun;
         private boolean fileEmpty;
 
+        /**
+         * The constructor that is responsible for getting the given file from a stream and storing it in the file variable
+         * @param f The file to be stored
+         */
         public TempFileReader(File f)
         {
             try
@@ -33,11 +50,15 @@ public class MergeRuns
             fileEmpty = false;
         }
 
+        /**
+         * Getting the next line in the file
+         * @return The next line in the file
+         */
         public String getNextLine()
         {
-            if(fileEmpty) return null;
+            if(fileEmpty) return null; // If the file is empty or at the end of the current run then return null
             if(endOfCurrentRun) return null;
-            try
+            try // Returns the next line in the file and changes file states if necessary
             {
                 String line = reader.readLine();
                 if(line == null)
@@ -61,22 +82,37 @@ public class MergeRuns
             return null;
         }
 
+        /**
+         * Returns the emptiness of the file
+         * @return The emptiness of the file as a boolean
+         */
         public boolean isEmpty()
         {
             return fileEmpty;
         }
 
+        /**
+         * Returns if at the end of the run
+         * @return If the end of the run has been reached
+         */
         public boolean runDone()
         {
             return endOfCurrentRun;
         }
 
+        /**
+         * Goes to the next run in the file
+         */
         public void nextRun()
         {
             if(fileEmpty) return; // if our file is empty, there are no more runs.
             endOfCurrentRun = false;
         }
 
+        /**
+         * Replaces the file with a new one
+         * @param newFile The new file to be used to replace
+         */
         public void replaceFile(File newFile)
         {
             file.delete();
@@ -84,6 +120,9 @@ public class MergeRuns
             file = newFile;
         }
 
+        /**
+         * Deletes the current file
+         */
         public void deleteFile()
         {
             try{reader.close();}
@@ -95,11 +134,16 @@ public class MergeRuns
         }
     }
 
-    private TempFileReader[] fileReaders;
+    private TempFileReader[] fileReaders; // An array of temporary file readers
 
+    /**
+     * The merge run constructor responsible for merging the files
+     * @param tempFileCount The amount of files for distribute runs to create
+     * @throws IOException Only thrown if standard input has no data
+     */
     public MergeRuns(String tempFileCount) throws IOException
     {
-        DistributeRuns dRuns = new DistributeRuns(tempFileCount);
+        DistributeRuns dRuns = new DistributeRuns(tempFileCount); // A distribute runs class
 
         int fileRuns = 2; // we set this to 2 so our while loop runs at least once.
         while(fileRuns > 1) // loop until we only have 1 run
@@ -202,7 +246,11 @@ public class MergeRuns
 
     }
 
-    public boolean allRunsDone() // are all the runs finished?
+    /**
+     * Returns a boolean based on if the files are all done being sorted
+     * @return True if the runs are down, false if one or more runs are not done
+     */
+    public boolean allRunsDone()
     {
         for(TempFileReader fReader: fileReaders)
         {
@@ -211,6 +259,10 @@ public class MergeRuns
         return true; // no files contain output, so all files have finished their runs.
     }
 
+    /**
+     * Checking if all the files are empty
+     * @return True if all files are empty, false if one or more have data
+     */
     public boolean allFilesEmpty()
     {
         for(TempFileReader fReader: fileReaders)
