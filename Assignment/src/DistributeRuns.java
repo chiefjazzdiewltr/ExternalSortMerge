@@ -23,13 +23,15 @@ public class DistributeRuns {
         {
 
             String fileName = "temp" + i;
-            File newFile = File.createTempFile(fileName,".tmp");
+            File newFile = new File(fileName + ".tmp");
+            if(newFile.exists()) newFile.delete();
+            newFile.createNewFile();
             tmpFiles[i] = newFile;
         }
 
         // check input, fill up temp files with runs
         int fileIndex = 0;
-        FileWriter myWriter = new FileWriter(tmpFiles[fileIndex], true);
+        FileWriter writer = new FileWriter(tmpFiles[fileIndex], true);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while(true)
         {
@@ -37,12 +39,13 @@ public class DistributeRuns {
             if(line == null) break;
             if(line.equals("NEXTRUN"))
             {
-                myWriter.close();
+                writer.write("NEXTRUN\r\n");
+                writer.close();
                 fileIndex = (fileIndex + 1) % tmpFiles.length;
-                myWriter = new FileWriter(tmpFiles[fileIndex], true);
+                writer = new FileWriter(tmpFiles[fileIndex], true);
             }
-            myWriter.write(line + "\r\n");
+            else writer.write(line + "\r\n");
         }
-        myWriter.close();
+        writer.close();
     }
 }
