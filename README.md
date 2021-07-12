@@ -1,4 +1,4 @@
-# ExternalSortMerge
+# External Sort Merge
 A balanced k-way sort merge, that is capable of sorting a list of strings.
 
 Usage:
